@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QSpacerItem>
 #include <QTimer>
+#include <QScrollArea>
 
 #include "chat_scr.cpp"
 
