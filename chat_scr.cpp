@@ -28,6 +28,120 @@ public:
 				close();
 			});
 		}
+
+		// main layout
+
+		QVBoxLayout *main_layout = new QVBoxLayout(this);
+		main_layout->setAlignment(Qt::AlignCenter);
+		main_layout->setContentsMargins(0, 0, 0, 0);
+		main_layout->setSpacing(0);
+
+		// title bar
+
+		QWidget *title_bar = new QWidget(this);
+		title_bar->setFixedHeight(30);
+		title_bar->setStyleSheet(title_bar_ss);
+		main_layout->addWidget(title_bar);
+
+		QHBoxLayout *title_bar_layout = new QHBoxLayout(title_bar);
+		title_bar_layout->setContentsMargins(0, 0, 0, 0);
+		title_bar_layout->setAlignment(Qt::AlignCenter);
+
+		QWidget *buttons_widget = new QWidget(this);
+		buttons_widget->setFixedHeight(30);
+
+		QHBoxLayout *buttons_layout = new QHBoxLayout(buttons_widget);
+		buttons_layout->setAlignment(Qt::AlignCenter);
+
+		QPushButton *exit_button = new QPushButton();
+		QPushButton *maxmize_button = new QPushButton();
+		QPushButton *minimize_button = new QPushButton();
+
+		QLabel *title_label = new QLabel(CHAT_WIN_INF.WIN_TITLE);
+		title_label->setStyleSheet(title_label_ss);
+		title_label->setAlignment(Qt::AlignCenter);
+
+		connect(exit_button, &QPushButton::clicked, this, [=]() { close(); });
+		connect(minimize_button, &QPushButton::clicked, this, [=]() { showMinimized(); });
+
+		exit_button->setStyleSheet(exit_button_ss);
+		exit_button->setFixedSize(14, 14);
+		buttons_layout->addWidget(exit_button);
+		
+		maxmize_button->setStyleSheet(maxmize_button_ss);
+		maxmize_button->setFixedSize(14, 14);
+		buttons_layout->addWidget(maxmize_button);
+
+		minimize_button->setStyleSheet(minimize_button_ss);
+		minimize_button->setFixedSize(14, 14);
+		buttons_layout->addWidget(minimize_button);
+
+		title_bar_layout->addWidget(buttons_widget);
+		title_bar_layout->addWidget(title_label);
+		title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
+
+		title_bar_layout->setStretch(0, 1);
+		title_bar_layout->setStretch(1, 5);
+		title_bar_layout->setStretch(2, 1);
+
+		// ip displayer container
+
+		QWidget *ip_displayer_widget = new QWidget(this);
+		ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss);
+		ip_displayer_widget->setObjectName("ip_displayer_widget");
+		main_layout->addWidget(ip_displayer_widget);
+
+		QVBoxLayout *ip_displayer_layout = new QVBoxLayout(ip_displayer_widget);
+		ip_displayer_layout->setAlignment(Qt::AlignCenter);
+
+		QLabel *ip_label = new QLabel(contact_ip, this);
+		ip_label->setStyleSheet(ip_label_ss);
+		ip_displayer_layout->addWidget(ip_label);
+
+		// chat container 
+
+		QWidget *chat_container_widget = new QWidget(this);
+		chat_container_widget->setStyleSheet(chat_container_widget_ss);
+
+		QVBoxLayout *chat_container_layout = new QVBoxLayout(chat_container_widget);
+
+		for (int i = 0; i < 50; i++)
+			chat_container_layout->addWidget(new QLabel("hello"));
+
+		QScrollArea *chat_container_scroll_area = new QScrollArea();
+		chat_container_scroll_area->setWidget(chat_container_widget);
+		chat_container_scroll_area->setWidgetResizable(true);
+		chat_container_scroll_area->setContentsMargins(0, 0, 0, 0);
+		chat_container_scroll_area->setFrameShape(QFrame::NoFrame);
+		main_layout->addWidget(chat_container_scroll_area);
+
+		// message field container
+
+		QWidget *message_field_container_widget = new QWidget(this);
+		message_field_container_widget->setStyleSheet(message_field_container_widget_ss);
+		main_layout->addWidget(message_field_container_widget);
+
+		QHBoxLayout *message_field_container_layout = new QHBoxLayout(message_field_container_widget);
+
+		QLineEdit *message_field = new QLineEdit();
+		message_field->setPlaceholderText("Enter your message");
+		message_field->setFixedHeight(40);
+		message_field->setStyleSheet(message_field_ss);
+
+		QPushButton *send_button = new QPushButton("Send");
+		send_button->setFixedHeight(40);
+		send_button->setStyleSheet(send_button_ss);
+
+		message_field_container_layout->addWidget(message_field);
+		message_field_container_layout->addWidget(send_button);
+
+		message_field_container_layout->setStretch(0, 6);
+		message_field_container_layout->setStretch(1, 1);
+
+		main_layout->setStretch(0, 1);
+		main_layout->setStretch(1, 2);
+		main_layout->setStretch(2, 20);
+		main_layout->setStretch(3, 2);
 	}
 
 private:
