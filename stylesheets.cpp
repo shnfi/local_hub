@@ -41,6 +41,28 @@ ss minimize_button_ss = "QPushButton { \
                         background-color:rgb(230, 170, 59); \
                     }";
 
-ss title_bar_ss = "background-color: #E1DFE1;";
+ss title_bar_ss = "background-color: #EDEDED;";
 
 ss title_label_ss = "color: #000000;";
+
+ss ip_displayer_widget_ss = "#ip_displayer_widget { \
+                            background-color: #DFDFDF; \
+                            border-bottom: 1px solid #BABABA; \
+                        }";
+
+ss ip_label_ss = "color: #000000;";
+
+ss chat_container_widget_ss = "background-color: #F5F5F5;";
+
+ss message_field_container_widget_ss = "background-color: #F5F5F5;";
+
+ss message_field_ss = "background-color: #DFDFDF; \
+                        color: #000000; \
+                        padding: 0 15px; \
+                        border: none; \
+                        border-radius: 20px;";
+
+ss send_button_ss = "background-color: #64FC4C; \
+                        color: #000000; \
+                        border: none; \
+                        border-radius: 20px;";
