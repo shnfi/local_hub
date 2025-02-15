@@ -92,6 +92,8 @@ private:
 			dialog->close();
 		});
 
+		connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
+
 		title_bar_layout->addWidget(buttons_widget);
 		title_bar_layout->addWidget(title_label);
 		title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
