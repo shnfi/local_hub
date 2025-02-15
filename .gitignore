@@ -1,5 +1,5 @@
-lan_messenger
-lan_messenger.pro
+local_hub
+local_hub.pro
 Makefile
 main.o
 .qmake.stash
