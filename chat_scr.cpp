@@ -105,9 +105,6 @@ public:
 
 		QVBoxLayout *chat_container_layout = new QVBoxLayout(chat_container_widget);
 
-		for (int i = 0; i < 50; i++)
-			chat_container_layout->addWidget(new QLabel("hello"));
-
 		QScrollArea *chat_container_scroll_area = new QScrollArea();
 		chat_container_scroll_area->setWidget(chat_container_widget);
 		chat_container_scroll_area->setWidgetResizable(true);
