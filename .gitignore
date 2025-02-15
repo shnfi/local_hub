@@ -1,0 +1,5 @@
+lan_messenger
+lan_messenger.pro
+Makefile
+main.o
+.qmake.stash
