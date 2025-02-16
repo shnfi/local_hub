@@ -1,6 +1,6 @@
 typedef const QString ss;
 
-ss dialog_ss = R"(background-color: #F5F5F5;)";
+ss dialog_ss = R"(background-color: #FFFFFF;)";
 
 ss ip_field_ss = R"(border-radius: 22px;
                     background-color: #DFDFDF;
@@ -52,9 +52,9 @@ ss ip_displayer_widget_ss = R"(#ip_displayer_widget {
 
 ss ip_label_ss = R"(color: #000000;)";
 
-ss chat_container_widget_ss = R"(background-color: #F5F5F5;)";
+ss chat_container_widget_ss = R"(background-color: #FFFFFF;)";
 
-ss message_field_container_widget_ss = R"(background-color: #F5F5F5;)";
+ss message_field_container_widget_ss = R"(background-color: #FFFFFF;)";
 
 ss message_field_ss = R"(background-color: #DFDFDF;
                         color: #000000;
