@@ -2,4 +2,5 @@ local_hub
 local_hub.pro
 Makefile
 main.o
+window.o
 .qmake.stash
