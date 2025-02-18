@@ -16,14 +16,18 @@ qmake -project
 vi local_hub.pro
 ```
 5. add this line under the `# Input` section .
-```
+```bash
 QT += core gui widgets
 ```
-6. then simply run the `make.sh` script to compile the project .
+6. add the `window.cpp` to the `SOURCES` section .
+```bash
+SOURCES += main.cpp window.cpp
+```
+7. then simply run the `make.sh` script to compile the project .
 ```bash
 ./build.sh
 ```
-7. run the application .
+8. run the application .
 ```bash
 ./local_hub
 ```
