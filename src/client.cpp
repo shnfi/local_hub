@@ -18,7 +18,7 @@ void start_client(std::string ip)
     if (client_socket == -1)
     {
         std::cout << "[x] error while starting server!" << std::endl;
-        return;
+        exit(1);
     }
 
     // specifying the destination 
@@ -29,7 +29,7 @@ void start_client(std::string ip)
     if (inet_pton(AF_INET, ip.c_str(), &client_addr.sin_addr) <= 0)
     {
         std::cout << "[x] error while processing the address!" << std::endl;
-        return;
+        exit(1);
     }
 
     // make a connection 
@@ -37,7 +37,7 @@ void start_client(std::string ip)
     if (connect(client_socket, (struct sockaddr *) &client_addr, sizeof(client_addr)) < 0)
     {
         std::cout << "[x] error while trying to make the connection!" << std::endl;
-        return;
+        exit(1);
     }
 
     std::cout << "connection made!" << std::endl;

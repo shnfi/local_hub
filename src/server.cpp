@@ -32,7 +32,7 @@ void start_server(std::string ip)
     if (server_socket == -1)
     {
         std::cout << "[x] error while starting server!" << std::endl;
-        return;
+        exit(1);
     }
 
     // binding
@@ -44,7 +44,7 @@ void start_server(std::string ip)
     if (bind(server_socket, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
     {
         std::cout << "[x] error while binding the server!" << std::endl;
-        return;
+        exit(1);
     }
 
     // listen for a connection
@@ -62,6 +62,6 @@ void start_server(std::string ip)
     if (new_socket < 0)
     {
         std::cout << "[x] error while accepting the connection!" << std::endl;
-        return;
+        exit(1);
     }
 }
