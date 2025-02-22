@@ -28,6 +28,7 @@ public:
 
 private:
     void ask_for_ip();
+    void send_msg(std::string msg, int cs);
 
 private:
     QVBoxLayout *main_layout;

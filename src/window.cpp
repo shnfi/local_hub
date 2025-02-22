@@ -14,9 +14,9 @@ Window::Window(QWidget *parent) : QWidget(parent)
     ask_for_ip();
 
     /*
-        * handling the fully exit if exit 
-        * button of the IP window was pressed.
-        */
+     * handling the fully exit if exit 
+     * button of the IP window was pressed.
+     */
 
     if (exit_on_dialog)
     {
@@ -125,6 +125,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
     send_button->setFixedHeight(40);
     send_button->setStyleSheet(send_button_ss);
 
+    connect(send_button, &QPushButton::clicked, this, [=]() {
+        send_msg(message_field->text().toStdString(), client_socket);
+        message_field->clear();
+    });
+
     message_field_container_layout->addWidget(message_field);
     message_field_container_layout->addWidget(send_button);
 
@@ -231,4 +236,15 @@ void Window::ask_for_ip()
 
     dialog->setLayout(dialog_layout);
     dialog->exec();
+}
+
+void Window::send_msg(std::string msg, int cs)
+{
+    if (send(cs, msg.c_str(), msg.size(), 0) == -1)
+    {
+        std::cout << "[x] message did not sent!" << std::endl;
+        return;
+    }
+
+    std::cout << msg << std::endl;
 }
