@@ -2,6 +2,8 @@
 #include "../resources/stylesheets.cpp"
 #include "win_inf.cpp"
 
+#include "server.cpp"
+
 Window::Window(QWidget *parent) : QWidget(parent)
 {
     setWindowTitle(CHAT_WIN_INF.WIN_TITLE);
@@ -223,6 +225,7 @@ void Window::ask_for_ip()
 
     connect(submit_button, &QPushButton::clicked, this, [=]() {
         contact_ip = ip_field->text();
+        start_server(contact_ip.toStdString());
         dialog->close();
     });
 
