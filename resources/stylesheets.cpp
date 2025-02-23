@@ -1,6 +1,9 @@
 typedef const QString ss;
 
-ss dialog_ss = R"(background-color: #FFFFFF;)";
+ss dialog_ss = R"(background-color: transparent;)";
+
+ss frame_ss = R"(background-color: #FFFFFF;
+                border-radius: 15px;)";
 
 ss ip_field_ss = R"(border-radius: 22px;
                     background-color: #DFDFDF;
@@ -41,7 +44,9 @@ ss minimize_button_ss = R"(QPushButton {
                         background-color:rgb(230, 170, 59);
                     })";
 
-ss title_bar_ss = R"(background-color: #EDEDED;)";
+ss title_bar_ss = R"(background-color: #EDEDED;
+                    border-top-right-radius: 15px;
+                    border-top-left-radius: 15px;)";
 
 ss title_label_ss = R"(color: #000000;)";
 
@@ -52,9 +57,11 @@ ss ip_displayer_widget_ss = R"(#ip_displayer_widget {
 
 ss ip_label_ss = R"(color: #000000;)";
 
-ss chat_container_widget_ss = R"(background-color: #FFFFFF;)";
+ss chat_container_widget_ss = R"(background-color: #FFFFFF;
+                                border-radius: 15px;)";
 
-ss message_field_container_widget_ss = R"(background-color: #FFFFFF;)";
+ss message_field_container_widget_ss = R"(background-color: #FFFFFF;
+                                        border-radius: 15px;)";
 
 ss message_field_ss = R"(background-color: #DFDFDF;
                         color: #000000;
