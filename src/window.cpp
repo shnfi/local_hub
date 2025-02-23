@@ -100,6 +100,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     chat_container_widget->setStyleSheet(chat_container_widget_ss);
 
     chat_container_layout = new QVBoxLayout(chat_container_widget);
+    chat_container_layout->addStretch();
 
     chat_container_scroll_area = new QScrollArea();
     chat_container_scroll_area->setWidget(chat_container_widget);
@@ -126,7 +127,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     send_button->setStyleSheet(send_button_ss);
 
     connect(send_button, &QPushButton::clicked, this, [=]() {
-        send_msg(message_field->text().toStdString(), client_socket);
+        send_msg(message_field->text(), client_socket);
         message_field->clear();
     });
 
@@ -238,13 +239,32 @@ void Window::ask_for_ip()
     dialog->exec();
 }
 
-void Window::send_msg(std::string msg, int cs)
+void Window::send_msg(QString msg, int cs)
 {
-    if (send(cs, msg.c_str(), msg.size(), 0) == -1)
+    if (send(cs, msg.toStdString().c_str(), msg.size(), 0) == -1)
     {
         std::cout << "[x] message did not sent!" << std::endl;
         return;
     }
 
-    std::cout << msg << std::endl;
+    QWidget *message_widget = new QWidget(this);
+
+    QHBoxLayout *message_widget_layout = new QHBoxLayout(message_widget);
+    message_widget_layout->setAlignment(Qt::AlignRight);
+    message_widget_layout->setContentsMargins(0, 0, 0, 0);
+
+    QWidget *message_container = new QWidget();
+    message_container->setMinimumHeight(40);
+    message_container->setMinimumWidth(70);
+    message_container->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+    message_container->setStyleSheet(sending_message_widget_ss);
+    message_widget_layout->addWidget(message_container);
+
+    QHBoxLayout *message_layout = new QHBoxLayout(message_container);
+    message_layout->setAlignment(Qt::AlignCenter);
+
+    QLabel *message_text = new QLabel((QString) msg);
+    message_layout->addWidget(message_text);
+
+    chat_container_layout->addWidget(message_widget);
 }
