@@ -8,6 +8,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
 {
     setWindowTitle(CHAT_WIN_INF.WIN_TITLE);
     setFixedSize(CHAT_WIN_INF.WIN_W, CHAT_WIN_INF.WIN_H);
+    setStyleSheet("background-color: transparent;");
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
@@ -31,6 +32,12 @@ Window::Window(QWidget *parent) : QWidget(parent)
     main_layout->setAlignment(Qt::AlignCenter);
     main_layout->setContentsMargins(0, 0, 0, 0);
     main_layout->setSpacing(0);
+
+    // frame
+
+    main_frame = new QFrame(this);
+    main_frame->setFixedSize(CHAT_WIN_INF.WIN_W, CHAT_WIN_INF.WIN_H);
+    main_frame->setStyleSheet(frame_ss);
 
     // title bar
 
@@ -152,6 +159,10 @@ void Window::ask_for_ip()
     dialog->setStyleSheet(dialog_ss);
     dialog->setWindowTitle(IP_WIN_INF.WIN_TITLE);
     dialog->setFixedSize(IP_WIN_INF.WIN_W, IP_WIN_INF.WIN_H);
+
+    dialog_frame = new QFrame(dialog);
+    dialog_frame->setFixedSize(IP_WIN_INF.WIN_W, IP_WIN_INF.WIN_H);
+    dialog_frame->setStyleSheet(frame_ss);
 
     dialog_layout = new QVBoxLayout(dialog);
     dialog_layout->setAlignment(Qt::AlignCenter);

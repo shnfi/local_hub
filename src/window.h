@@ -32,6 +32,7 @@ private:
 
 private:
     QVBoxLayout *main_layout;
+    QFrame *main_frame;
     QWidget *title_bar;
     QHBoxLayout *title_bar_layout;
     QWidget *buttons_widget;
@@ -51,6 +52,7 @@ private:
     QLineEdit *message_field;
     QPushButton *send_button;
     QDialog *dialog;
+    QFrame *dialog_frame;
     QVBoxLayout *dialog_layout;
     QWidget *form_widget;
     QVBoxLayout *form_layout;
