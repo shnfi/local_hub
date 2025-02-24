@@ -33,8 +33,6 @@ SOURCES += main.cpp window.cpp
 ```
 
 ## Additional information about Local Hub
-| **Connection type** | p2p connection |
-|      **Port**       |     50000      |
-|      **Linux**      |     true       |
-|     **windows**     |     true       |
-|       **Mac**       |   not tested   |
+| Connection type | Port | Linux | windows | Mac |
+| :---: | :---: | :---: | :---: | :---: |
+|p2p connection | 50000 | true | true | not tested |
