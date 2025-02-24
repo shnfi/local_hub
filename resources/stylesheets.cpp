@@ -74,8 +74,11 @@ ss send_button_ss = R"(background-color: #64FC4C;
                         border: none;
                         border-radius: 20px;)";
 
-ss sending_message_widget_ss = R"(
-                                background-color: #2294FB;
+ss sending_message_widget_ss = R"(background-color: #2294FB;
                                 border-radius: 20px;
                                 padding: 0 5px;
                             )";
+ss received_message_widget_ss = R"(background-color: #EDEDED;
+                                    border-radius: 20px;
+                                    padding: 0 5px;
+                                )";
