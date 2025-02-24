@@ -51,7 +51,7 @@ ss title_bar_ss = R"(background-color: #EDEDED;
 ss title_label_ss = R"(color: #000000;)";
 
 ss ip_displayer_widget_ss = R"(#ip_displayer_widget {
-                            background-color: #DFDFDF;
+                            background-color: #EDEDED;
                             border-bottom: 1px solid #BABABA;
                         })";
 
