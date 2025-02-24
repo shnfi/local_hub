@@ -279,3 +279,35 @@ void Window::send_msg(QString msg, int cs)
 
     chat_container_layout->addWidget(message_widget);
 }
+
+void Window::receive_msg(int ss)
+{
+    char buff[BUFFER_SIZE];
+
+    if (recv(ss, buff, BUFFER_SIZE, 0) == -1)
+    {
+        std::cout << "[x] message did not received!" << std::endl;
+        return;
+    }
+
+    QWidget *message_widget = new QWidget(this);
+
+    QHBoxLayout *message_widget_layout = new QHBoxLayout(message_widget);
+    message_widget_layout->setAlignment(Qt::AlignLeft);
+    message_widget_layout->setContentsMargins(0, 0, 0, 0);
+
+    QWidget *message_container = new QWidget();
+    message_container->setMinimumHeight(40);
+    message_container->setMinimumWidth(70);
+    message_container->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
+    message_container->setStyleSheet(received_message_widget_ss);
+    message_widget_layout->addWidget(message_container);
+
+    QHBoxLayout *message_layout = new QHBoxLayout(message_container);
+    message_layout->setAlignment(Qt::AlignCenter);
+
+    QLabel *message_text = new QLabel((QString) buff);
+    message_layout->addWidget(message_text);
+
+    chat_container_layout->addWidget(message_widget);
+}

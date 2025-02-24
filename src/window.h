@@ -16,6 +16,8 @@
 #include <QTimer>
 #include <QScrollArea>
 
+#define BUFFER_SIZE 1024
+
 class Window : public QWidget
 {
 private:
@@ -29,6 +31,7 @@ public:
 private:
     void ask_for_ip();
     void send_msg(QString msg, int cs);
+    void receive_msg(int ss);
 
 private:
     QVBoxLayout *main_layout;
