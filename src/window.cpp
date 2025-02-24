@@ -129,13 +129,17 @@ Window::Window(QWidget *parent) : QWidget(parent)
     message_field->setFixedHeight(40);
     message_field->setStyleSheet(message_field_ss);
 
+    connect(message_field, &QLineEdit::textEdited, this, &Window::check_for_field_val);
+
     send_button = new QPushButton("Send");
     send_button->setFixedHeight(40);
     send_button->setStyleSheet(send_button_ss);
 
+    clear_the_field();
+
     connect(send_button, &QPushButton::clicked, this, [=]() {
         send_msg(message_field->text(), client_socket);
-        message_field->clear();
+        clear_the_field();
     });
 
     message_field_container_layout->addWidget(message_field);
@@ -248,6 +252,20 @@ void Window::ask_for_ip()
 
     dialog->setLayout(dialog_layout);
     dialog->exec();
+}
+
+void Window::check_for_field_val()
+{
+    if (message_field->text() == "")
+        send_button->hide();
+    else
+        send_button->show();
+}
+
+void Window::clear_the_field()
+{
+    message_field->clear();
+    send_button->hide();
 }
 
 void Window::send_msg(QString msg, int cs)

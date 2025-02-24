@@ -30,6 +30,8 @@ public:
 
 private:
     void ask_for_ip();
+    void check_for_field_val();
+    void clear_the_field();
     void send_msg(QString msg, int cs);
     void receive_msg(int ss);
 
