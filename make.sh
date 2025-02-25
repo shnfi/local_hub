@@ -1,1 +1,5 @@
-qmake;make
+#!/bin/bash
+
+qmake -project
+qmake
+make
