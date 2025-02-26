@@ -7,9 +7,17 @@ LAN messengers are some kind of messengers that transmits data between two devic
 ## How to run ?
 1. clone the project into your computer .
 2. navigate to the project's directory .
-3. make the project .
+3. first of all make the project .
 ```bash
-./make.sh
+./first_make.sh
+```
+4. modify the `local_hub.pro` file, and add this line under `# Input` :
+```
+QT += core gui widgets network
+```
+5. then build the project .
+```bash
+./bulid.sh
 ```
 
 ## Additional information about Local Hub
