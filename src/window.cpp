@@ -26,6 +26,14 @@ Window::Window(QWidget *parent) : QWidget(parent)
         });
     }
 
+    // server_socket_notifier widget
+
+    server_socket_notifier = new QSocketNotifier(new_socket, QSocketNotifier::Read, this);
+
+    connect(server_socket_notifier, &QSocketNotifier::activated, this, &Window::receive_msg);
+
+    std::cout << "listening on port " << PORT << std::endl;
+
     // main layout
 
     main_layout = new QVBoxLayout(this);
@@ -138,7 +146,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     clear_the_field();
 
     connect(send_button, &QPushButton::clicked, this, [=]() {
-        send_msg(message_field->text(), client_socket);
+        send_msg(message_field->text());
         clear_the_field();
     });
 
@@ -268,9 +276,9 @@ void Window::clear_the_field()
     send_button->hide();
 }
 
-void Window::send_msg(QString msg, int cs)
+void Window::send_msg(QString msg)
 {
-    if (send(cs, msg.toStdString().c_str(), msg.size(), 0) == -1)
+    if (send(client_socket, msg.toStdString().c_str(), msg.size(), 0) == -1)
     {
         std::cout << "[x] message did not sent!" << std::endl;
         return;
@@ -298,11 +306,12 @@ void Window::send_msg(QString msg, int cs)
     chat_container_layout->addWidget(message_widget);
 }
 
-void Window::receive_msg(int ss)
+void Window::receive_msg()
 {
-    char buff[BUFFER_SIZE];
+    char buff[BUFFER_SIZE] = {0};
+    ssize_t received_bytes = recv(new_socket, buff, BUFFER_SIZE - 1, 0);
 
-    if (recv(ss, buff, BUFFER_SIZE, 0) == -1)
+    if (received_bytes <= 0)
     {
         std::cout << "[x] message did not received!" << std::endl;
         return;
