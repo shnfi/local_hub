@@ -17,11 +17,12 @@ void initWinsock()
 void initWinsock() {} // Empty for Linux/macOS
 #endif
 
+int server_socket, new_socket;
+
 void start_server(std::string ip)
 {
     initWinsock();
 
-    int server_socket, new_socket;
     struct sockaddr_in server_addr;
     socklen_t server_addr_size = sizeof(server_addr);
 
@@ -57,7 +58,7 @@ void start_server(std::string ip)
 
     // accept a connection 
 
-    new_socket = accept(server_socket, (struct sockaddr *) &server_addr, &server_addr_size);
+    new_socket = accept(server_socket, (struct sockaddr *) &client_addr, &client_addr_size);
 
     if (new_socket < 0)
     {

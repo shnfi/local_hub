@@ -3,13 +3,14 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-#define PORT 50000
+#define PORT 12345
 
 int client_socket;
+struct sockaddr_in client_addr;
+socklen_t client_addr_size = sizeof(client_addr);
 
 void start_client(std::string ip)
 {
-    struct sockaddr_in client_addr;
 
     // socket creation 
 
@@ -40,5 +41,5 @@ void start_client(std::string ip)
         exit(1);
     }
 
-    std::cout << "connection made!" << std::endl;
+    std::cout << "connected to " << ip << std::endl;
 }
