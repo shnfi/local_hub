@@ -118,6 +118,8 @@ Window::Window(QWidget *parent) : QWidget(parent)
     chat_container_layout->addStretch();
 
     chat_container_scroll_area = new QScrollArea();
+    chat_container_scroll_area->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    chat_container_scroll_area->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     chat_container_scroll_area->setWidget(chat_container_widget);
     chat_container_scroll_area->setWidgetResizable(true);
     chat_container_scroll_area->setContentsMargins(0, 0, 0, 0);
