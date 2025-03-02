@@ -78,6 +78,7 @@ ss sending_message_widget_ss = R"(background-color: #2294FB;
                                 padding: 0 5px;
                             )";
 ss received_message_widget_ss = R"(background-color: #EDEDED;
+                                    color: #000000;
                                     border-radius: 20px;
                                     padding: 0 5px;
                                 )";
