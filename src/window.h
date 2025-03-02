@@ -15,6 +15,7 @@
 #include <QSpacerItem>
 #include <QTimer>
 #include <QScrollArea>
+#include <QSocketNotifier>
 
 #define BUFFER_SIZE 1024
 
@@ -32,10 +33,11 @@ private:
     void ask_for_ip();
     void check_for_field_val();
     void clear_the_field();
-    void send_msg(QString msg, int cs);
-    void receive_msg(int ss);
+    void send_msg(QString msg);
+    void receive_msg();
 
 private:
+    QSocketNotifier *server_socket_notifier;
     QVBoxLayout *main_layout;
     QFrame *main_frame;
     QWidget *title_bar;
@@ -63,6 +65,7 @@ private:
     QVBoxLayout *form_layout;
     QLineEdit *ip_field;
     QPushButton *submit_button;
+    QSocketNotifier *client_socket_notifier;
 };
 
-#endif WINDOW_H
+#endif
