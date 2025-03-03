@@ -5,14 +5,14 @@ ss dialog_ss = R"(background-color: transparent;)";
 ss frame_ss = R"(background-color: #FFFFFF;
                 border-radius: 15px;)";
 
-ss ip_field_ss = R"(border-radius: 22px;
+ss ip_field_ss = R"(border-radius: 20px;
                     background-color: #DFDFDF;
                     height: 50px;
                     padding: 0 15px;
                     color: #000000;)";
 
 ss submit_button_ss = R"(QPushButton {
-                        border-radius: 22px;
+                        border-radius: 20px;
                         background-color: #2294FB;
                         height: 50px;
                     }
