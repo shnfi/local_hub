@@ -60,7 +60,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     buttons_widget = new QWidget(this);
     buttons_widget->setFixedHeight(30);
-    buttons_widget->setFixedWidth(70);
+    buttons_widget->setFixedWidth(85);
 
     buttons_layout = new QHBoxLayout(buttons_widget);
     buttons_layout->setAlignment(Qt::AlignCenter);
@@ -204,7 +204,7 @@ void Window::ask_for_ip()
 
     buttons_widget = new QWidget();
     buttons_widget->setFixedHeight(30);
-    buttons_widget->setFixedWidth(70);
+    buttons_widget->setFixedWidth(85);
 
     buttons_layout = new QHBoxLayout(buttons_widget);
     buttons_layout->setAlignment(Qt::AlignCenter);
