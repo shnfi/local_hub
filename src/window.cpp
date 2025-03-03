@@ -141,9 +141,10 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     connect(message_field, &QLineEdit::textEdited, this, &Window::check_for_field_val);
 
-    send_button = new QPushButton("Send");
+    send_button = new QPushButton("");
     send_button->setFixedHeight(40);
     send_button->setStyleSheet(send_button_ss);
+    send_button->setIcon(QIcon("resources/top_arrow.png"));
 
     clear_the_field();
 
@@ -155,7 +156,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     message_field_container_layout->addWidget(message_field);
     message_field_container_layout->addWidget(send_button);
 
-    message_field_container_layout->setStretch(0, 6);
+    message_field_container_layout->setStretch(0, 13);
     message_field_container_layout->setStretch(1, 1);
 
     main_layout->setStretch(0, 1);
