@@ -1,8 +1,8 @@
 struct IP_WINDOW_INF
 {
     const QString WIN_TITLE = "Local Hub - Enter IP";
-    const int WIN_W = 588;
-    const int WIN_H = 350;
+    const int WIN_W = 500;
+    const int WIN_H = 250;
 } IP_WIN_INF;
 
 struct CHAT_WINDOW_INF
