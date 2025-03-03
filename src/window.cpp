@@ -60,6 +60,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     buttons_widget = new QWidget(this);
     buttons_widget->setFixedHeight(30);
+    buttons_widget->setFixedWidth(70);
 
     buttons_layout = new QHBoxLayout(buttons_widget);
     buttons_layout->setAlignment(Qt::AlignCenter);
@@ -203,6 +204,7 @@ void Window::ask_for_ip()
 
     buttons_widget = new QWidget();
     buttons_widget->setFixedHeight(30);
+    buttons_widget->setFixedWidth(70);
 
     buttons_layout = new QHBoxLayout(buttons_widget);
     buttons_layout->setAlignment(Qt::AlignCenter);
@@ -245,6 +247,7 @@ void Window::ask_for_ip()
     ip_field = new QLineEdit(dialog);
     ip_field->setStyleSheet(ip_field_ss);
     ip_field->setFixedWidth(350);
+    ip_field->setFixedHeight(40);
     ip_field->setPlaceholderText("Enter the IP address");
     form_layout->addWidget(ip_field);
 
@@ -253,6 +256,7 @@ void Window::ask_for_ip()
     submit_button = new QPushButton("Submit", dialog);
     submit_button->setStyleSheet(submit_button_ss);
     submit_button->setFixedWidth(350);
+    submit_button->setFixedHeight(40);
     form_layout->addWidget(submit_button);
 
     connect(submit_button, &QPushButton::clicked, this, [=]() {
