@@ -35,6 +35,8 @@ private:
     void clear_the_field();
     void send_msg(QString msg);
     void receive_msg();
+    void light_theme();
+    void dark_theme();
 
 private:
     QSocketNotifier *server_socket_notifier;
