@@ -46,13 +46,13 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     main_frame = new QFrame(this);
     main_frame->setFixedSize(CHAT_WIN_INF.WIN_W, CHAT_WIN_INF.WIN_H);
-    main_frame->setStyleSheet(frame_ss_dark);
+    main_frame->setStyleSheet(frame_ss_light);
 
     // title bar
 
     title_bar = new QWidget(this);
     title_bar->setFixedHeight(30);
-    title_bar->setStyleSheet(title_bar_ss_dark);
+    title_bar->setStyleSheet(title_bar_ss_light);
     main_layout->addWidget(title_bar);
 
     title_bar_layout = new QHBoxLayout(title_bar);
@@ -71,21 +71,21 @@ Window::Window(QWidget *parent) : QWidget(parent)
     minimize_button = new QPushButton();
 
     title_label = new QLabel(CHAT_WIN_INF.WIN_TITLE);
-    title_label->setStyleSheet(title_label_ss_dark);
+    title_label->setStyleSheet(title_label_ss_light);
     title_label->setAlignment(Qt::AlignCenter);
 
     connect(exit_button, &QPushButton::clicked, this, [=]() { close(); });
     connect(minimize_button, &QPushButton::clicked, this, [=]() { showMinimized(); });
 
-    exit_button->setStyleSheet(exit_button_ss_dark);
+    exit_button->setStyleSheet(exit_button_ss_light);
     exit_button->setFixedSize(14, 14);
     buttons_layout->addWidget(exit_button);
     
-    maxmize_button->setStyleSheet(maxmize_button_ss_dark);
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
     maxmize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(maxmize_button);
 
-    minimize_button->setStyleSheet(minimize_button_ss_dark);
+    minimize_button->setStyleSheet(minimize_button_ss_light);
     minimize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(minimize_button);
 
@@ -100,7 +100,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     // ip displayer container
 
     ip_displayer_widget = new QWidget(this);
-    ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_dark);
+    ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_light);
     ip_displayer_widget->setObjectName("ip_displayer_widget");
     main_layout->addWidget(ip_displayer_widget);
 
@@ -108,13 +108,13 @@ Window::Window(QWidget *parent) : QWidget(parent)
     ip_displayer_layout->setAlignment(Qt::AlignCenter);
 
     ip_label = new QLabel(contact_ip, this);
-    ip_label->setStyleSheet(ip_label_ss_dark);
+    ip_label->setStyleSheet(ip_label_ss_light);
     ip_displayer_layout->addWidget(ip_label);
 
     // chat container 
 
     chat_container_widget = new QWidget(this);
-    chat_container_widget->setStyleSheet(chat_container_widget_ss_dark);
+    chat_container_widget->setStyleSheet(chat_container_widget_ss_light);
 
     chat_container_layout = new QVBoxLayout(chat_container_widget);
     chat_container_layout->addStretch();
@@ -131,7 +131,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     // message field container
 
     message_field_container_widget = new QWidget(this);
-    message_field_container_widget->setStyleSheet(message_field_container_widget_ss_dark);
+    message_field_container_widget->setStyleSheet(message_field_container_widget_ss_light);
     main_layout->addWidget(message_field_container_widget);
 
     message_field_container_layout = new QHBoxLayout(message_field_container_widget);
@@ -139,13 +139,13 @@ Window::Window(QWidget *parent) : QWidget(parent)
     message_field = new QLineEdit();
     message_field->setPlaceholderText("Enter your message");
     message_field->setFixedHeight(40);
-    message_field->setStyleSheet(message_field_ss_dark);
+    message_field->setStyleSheet(message_field_ss_light);
 
     connect(message_field, &QLineEdit::textEdited, this, &Window::check_for_field_val);
 
     send_button = new QPushButton("");
     send_button->setFixedHeight(40);
-    send_button->setStyleSheet(send_button_ss_dark);
+    send_button->setStyleSheet(send_button_ss_light);
     send_button->setIcon(QIcon("resources/top_arrow.png"));
 
     clear_the_field();
@@ -173,13 +173,13 @@ void Window::ask_for_ip()
 {
     dialog = new QDialog(this);
     dialog->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    dialog->setStyleSheet(dialog_ss_dark);
+    dialog->setStyleSheet(dialog_ss_light);
     dialog->setWindowTitle(IP_WIN_INF.WIN_TITLE);
     dialog->setFixedSize(IP_WIN_INF.WIN_W, IP_WIN_INF.WIN_H);
 
     dialog_frame = new QFrame(dialog);
     dialog_frame->setFixedSize(IP_WIN_INF.WIN_W, IP_WIN_INF.WIN_H);
-    dialog_frame->setStyleSheet(frame_ss_dark);
+    dialog_frame->setStyleSheet(frame_ss_light);
 
     dialog_layout = new QVBoxLayout(dialog);
     dialog_layout->setAlignment(Qt::AlignCenter);
@@ -187,7 +187,7 @@ void Window::ask_for_ip()
 
     title_bar = new QWidget();
     title_bar->setFixedHeight(30);
-    title_bar->setStyleSheet(title_bar_ss_dark);
+    title_bar->setStyleSheet(title_bar_ss_light);
     dialog_layout->addWidget(title_bar);
 
     form_widget = new QWidget();
@@ -215,18 +215,18 @@ void Window::ask_for_ip()
     minimize_button = new QPushButton();
 
     title_label = new QLabel(IP_WIN_INF.WIN_TITLE);
-    title_label->setStyleSheet(title_label_ss_dark);
+    title_label->setStyleSheet(title_label_ss_light);
     title_label->setAlignment(Qt::AlignCenter);
 
-    exit_button->setStyleSheet(exit_button_ss_dark);
+    exit_button->setStyleSheet(exit_button_ss_light);
     exit_button->setFixedSize(14, 14);
     buttons_layout->addWidget(exit_button);
     
-    maxmize_button->setStyleSheet(maxmize_button_ss_dark);
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
     maxmize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(maxmize_button);
 
-    minimize_button->setStyleSheet(minimize_button_ss_dark);
+    minimize_button->setStyleSheet(minimize_button_ss_light);
     minimize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(minimize_button);
 
@@ -246,7 +246,7 @@ void Window::ask_for_ip()
     title_bar_layout->setStretch(2, 1);
 
     ip_field = new QLineEdit(dialog);
-    ip_field->setStyleSheet(ip_field_ss_dark);
+    ip_field->setStyleSheet(ip_field_ss_light);
     ip_field->setFixedWidth(350);
     ip_field->setFixedHeight(40);
     ip_field->setPlaceholderText("Enter the IP address");
@@ -255,7 +255,7 @@ void Window::ask_for_ip()
     form_layout->addSpacerItem(new QSpacerItem(20, 20));
 
     submit_button = new QPushButton("Submit", dialog);
-    submit_button->setStyleSheet(submit_button_ss_dark);
+    submit_button->setStyleSheet(submit_button_ss_light);
     submit_button->setFixedWidth(350);
     submit_button->setFixedHeight(40);
     form_layout->addWidget(submit_button);
@@ -302,7 +302,7 @@ void Window::send_msg(QString msg)
     message_container->setMinimumHeight(40);
     message_container->setMinimumWidth(70);
     message_container->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-    message_container->setStyleSheet(sending_message_widget_ss_dark);
+    message_container->setStyleSheet(sending_message_widget_ss_light);
     message_widget_layout->addWidget(message_container);
 
     QHBoxLayout *message_layout = new QHBoxLayout(message_container);
@@ -335,7 +335,7 @@ void Window::receive_msg()
     message_container->setMinimumHeight(40);
     message_container->setMinimumWidth(70);
     message_container->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-    message_container->setStyleSheet(received_message_widget_ss_dark);
+    message_container->setStyleSheet(received_message_widget_ss_light);
     message_widget_layout->addWidget(message_container);
 
     QHBoxLayout *message_layout = new QHBoxLayout(message_container);
