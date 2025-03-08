@@ -35,10 +35,13 @@ private:
     void clear_the_field();
     void send_msg(QString msg);
     void receive_msg();
-    void light_theme();
-    void dark_theme();
+    void dialog_light_theme();
+    void dialog_dark_theme();
+    void main_light_theme();
+    void main_dark_theme();
 
 private:
+    int theme = 1;
     QSocketNotifier *server_socket_notifier;
     QVBoxLayout *main_layout;
     QFrame *main_frame;
@@ -65,6 +68,9 @@ private:
     QVBoxLayout *dialog_layout;
     QWidget *form_widget;
     QVBoxLayout *form_layout;
+    QWidget *change_theme_widget;
+    QHBoxLayout *change_theme_layout;
+    QPushButton *change_theme_button;
     QLineEdit *ip_field;
     QPushButton *submit_button;
     QSocketNotifier *client_socket_notifier;

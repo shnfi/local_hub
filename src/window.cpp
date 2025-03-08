@@ -48,13 +48,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     main_frame = new QFrame(this);
     main_frame->setFixedSize(CHAT_WIN_INF.WIN_W, CHAT_WIN_INF.WIN_H);
-    main_frame->setStyleSheet(frame_ss_light);
 
     // title bar
 
     title_bar = new QWidget(this);
     title_bar->setFixedHeight(30);
-    title_bar->setStyleSheet(title_bar_ss_light);
     main_layout->addWidget(title_bar);
 
     title_bar_layout = new QHBoxLayout(title_bar);
@@ -73,27 +71,49 @@ Window::Window(QWidget *parent) : QWidget(parent)
     minimize_button = new QPushButton();
 
     title_label = new QLabel(CHAT_WIN_INF.WIN_TITLE);
-    title_label->setStyleSheet(title_label_ss_light);
     title_label->setAlignment(Qt::AlignCenter);
 
     connect(exit_button, &QPushButton::clicked, this, [=]() { close(); });
     connect(minimize_button, &QPushButton::clicked, this, [=]() { showMinimized(); });
 
-    exit_button->setStyleSheet(exit_button_ss_light);
     exit_button->setFixedSize(14, 14);
     buttons_layout->addWidget(exit_button);
-    
-    maxmize_button->setStyleSheet(maxmize_button_ss_light);
+
     maxmize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(maxmize_button);
 
-    minimize_button->setStyleSheet(minimize_button_ss_light);
     minimize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(minimize_button);
 
+    change_theme_widget = new QWidget();
+    change_theme_widget->setFixedHeight(30);
+    change_theme_widget->setFixedWidth(50);
+
+    change_theme_layout = new QHBoxLayout(change_theme_widget);
+    change_theme_layout->setAlignment(Qt::AlignCenter);
+
+    change_theme_button = new QPushButton();
+
+    change_theme_button->setStyleSheet(change_theme_button_ss_light);
+    change_theme_button->setFixedSize(14, 14);
+    change_theme_layout->addWidget(change_theme_button);
+
+    connect(change_theme_button, &QPushButton::clicked, this, [=]() {
+        if (theme == 1)
+        {
+            theme = 2;
+            main_dark_theme();
+        }
+        else
+        {
+            theme = 1;
+            main_light_theme();
+        }
+    });
+
     title_bar_layout->addWidget(buttons_widget);
     title_bar_layout->addWidget(title_label);
-    title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
+    title_bar_layout->addWidget(change_theme_widget);
 
     title_bar_layout->setStretch(0, 1);
     title_bar_layout->setStretch(1, 5);
@@ -102,7 +122,6 @@ Window::Window(QWidget *parent) : QWidget(parent)
     // ip displayer container
 
     ip_displayer_widget = new QWidget(this);
-    ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_light);
     ip_displayer_widget->setObjectName("ip_displayer_widget");
     main_layout->addWidget(ip_displayer_widget);
 
@@ -110,13 +129,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
     ip_displayer_layout->setAlignment(Qt::AlignCenter);
 
     ip_label = new QLabel(contact_ip, this);
-    ip_label->setStyleSheet(ip_label_ss_light);
     ip_displayer_layout->addWidget(ip_label);
 
-    // chat container 
+    // chat container
 
     chat_container_widget = new QWidget(this);
-    chat_container_widget->setStyleSheet(chat_container_widget_ss_light);
 
     chat_container_layout = new QVBoxLayout(chat_container_widget);
     chat_container_layout->addStretch();
@@ -133,7 +150,6 @@ Window::Window(QWidget *parent) : QWidget(parent)
     // message field container
 
     message_field_container_widget = new QWidget(this);
-    message_field_container_widget->setStyleSheet(message_field_container_widget_ss_light);
     main_layout->addWidget(message_field_container_widget);
 
     message_field_container_layout = new QHBoxLayout(message_field_container_widget);
@@ -141,13 +157,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
     message_field = new QLineEdit();
     message_field->setPlaceholderText("Enter your message");
     message_field->setFixedHeight(40);
-    message_field->setStyleSheet(message_field_ss_light);
 
     connect(message_field, &QLineEdit::textEdited, this, &Window::check_for_field_val);
 
     send_button = new QPushButton("");
     send_button->setFixedHeight(40);
-    send_button->setStyleSheet(send_button_ss_light);
     send_button->setIcon(QIcon("resources/top_arrow.png"));
 
     clear_the_field();
@@ -167,6 +181,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
     main_layout->setStretch(1, 2);
     main_layout->setStretch(2, 20);
     main_layout->setStretch(3, 2);
+
+    if (theme == 1)
+        main_light_theme();
+    else
+        main_dark_theme();
 }
 
 Window::~Window() {}
@@ -223,7 +242,7 @@ void Window::ask_for_ip()
     exit_button->setStyleSheet(exit_button_ss_light);
     exit_button->setFixedSize(14, 14);
     buttons_layout->addWidget(exit_button);
-    
+
     maxmize_button->setStyleSheet(maxmize_button_ss_light);
     maxmize_button->setFixedSize(14, 14);
     buttons_layout->addWidget(maxmize_button);
@@ -239,9 +258,35 @@ void Window::ask_for_ip()
 
     connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
 
+    change_theme_widget = new QWidget();
+    change_theme_widget->setFixedHeight(30);
+    change_theme_widget->setFixedWidth(50);
+
+    change_theme_layout = new QHBoxLayout(change_theme_widget);
+    change_theme_layout->setAlignment(Qt::AlignCenter);
+
+    change_theme_button = new QPushButton();
+
+    change_theme_button->setStyleSheet(change_theme_button_ss_light);
+    change_theme_button->setFixedSize(14, 14);
+    change_theme_layout->addWidget(change_theme_button);
+
+    connect(change_theme_button, &QPushButton::clicked, this, [=]() {
+        if (theme == 1)
+        {
+            theme = 2;
+            dialog_dark_theme();
+        }
+        else
+        {
+            theme = 1;
+            dialog_light_theme();
+        }
+    });
+
     title_bar_layout->addWidget(buttons_widget);
     title_bar_layout->addWidget(title_label);
-    title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
+    title_bar_layout->addWidget(change_theme_widget);
 
     title_bar_layout->setStretch(0, 1);
     title_bar_layout->setStretch(1, 5);
@@ -264,7 +309,7 @@ void Window::ask_for_ip()
 
     connect(submit_button, &QPushButton::clicked, this, [=]() {
         contact_ip = ip_field->text();
-        
+
         std::thread server_thread(start_server, contact_ip.toStdString());
         std::thread client_thread(start_client, contact_ip.toStdString());
 
@@ -355,6 +400,62 @@ void Window::receive_msg()
     chat_container_layout->addWidget(message_widget);
 }
 
-void Window::light_theme() {}
+void Window::dialog_light_theme()
+{
+    dialog->setStyleSheet(dialog_ss_light);
+    dialog_frame->setStyleSheet(frame_ss_light);
+    title_bar->setStyleSheet(title_bar_ss_light);
+    title_label->setStyleSheet(title_label_ss_light);
+    exit_button->setStyleSheet(exit_button_ss_light);
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
+    minimize_button->setStyleSheet(minimize_button_ss_light);
+    change_theme_button->setStyleSheet(change_theme_button_ss_light);
+    ip_field->setStyleSheet(ip_field_ss_light);
+    submit_button->setStyleSheet(submit_button_ss_light);
+}
 
-void Window::dark_theme() {}
+void Window::dialog_dark_theme()
+{
+    dialog->setStyleSheet(dialog_ss_dark);
+    dialog_frame->setStyleSheet(frame_ss_dark);
+    title_bar->setStyleSheet(title_bar_ss_dark);
+    title_label->setStyleSheet(title_label_ss_dark);
+    exit_button->setStyleSheet(exit_button_ss_dark);
+    maxmize_button->setStyleSheet(maxmize_button_ss_dark);
+    minimize_button->setStyleSheet(minimize_button_ss_dark);
+    change_theme_button->setStyleSheet(change_theme_button_ss_dark);
+    ip_field->setStyleSheet(ip_field_ss_dark);
+    submit_button->setStyleSheet(submit_button_ss_dark);
+}
+
+void Window::main_light_theme()
+{
+    main_frame->setStyleSheet(frame_ss_light);
+    title_bar->setStyleSheet(title_bar_ss_light);
+    title_label->setStyleSheet(title_label_ss_light);
+    exit_button->setStyleSheet(exit_button_ss_light);
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
+    minimize_button->setStyleSheet(minimize_button_ss_light);
+    ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_light);
+    ip_label->setStyleSheet(ip_label_ss_light);
+    chat_container_widget->setStyleSheet(chat_container_widget_ss_light);
+    message_field_container_widget->setStyleSheet(message_field_container_widget_ss_light);
+    message_field->setStyleSheet(message_field_ss_light);
+    send_button->setStyleSheet(send_button_ss_light);
+}
+
+void Window::main_dark_theme()
+{
+    main_frame->setStyleSheet(frame_ss_dark);
+    title_bar->setStyleSheet(title_bar_ss_dark);
+    title_label->setStyleSheet(title_label_ss_dark);
+    exit_button->setStyleSheet(exit_button_ss_dark);
+    maxmize_button->setStyleSheet(maxmize_button_ss_dark);
+    minimize_button->setStyleSheet(minimize_button_ss_dark);
+    ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_dark);
+    ip_label->setStyleSheet(ip_label_ss_dark);
+    chat_container_widget->setStyleSheet(chat_container_widget_ss_dark);
+    message_field_container_widget->setStyleSheet(message_field_container_widget_ss_dark);
+    message_field->setStyleSheet(message_field_ss_dark);
+    send_button->setStyleSheet(send_button_ss_dark);
+}
