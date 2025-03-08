@@ -80,3 +80,11 @@ ss received_message_widget_ss_dark = R"(background-color: #3A3A3C;
                                     border-radius: 20px;
                                     padding: 0 5px;
                                 )";
+
+ss change_theme_button_ss_dark = R"(QPushButton {
+                        border-radius: 7px;
+                        background-color:rgb(110, 110, 110);
+                    }
+                    QPushButton::hover {
+                        background-color:rgb(75, 75, 75);
+                    })";
