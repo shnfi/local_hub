@@ -1,3 +1,5 @@
+#include <thread>
+
 #include "window.h"
 #include "../resources/light_stylesheet.cpp"
 #include "../resources/dark_stylesheet.cpp"
@@ -262,7 +264,13 @@ void Window::ask_for_ip()
 
     connect(submit_button, &QPushButton::clicked, this, [=]() {
         contact_ip = ip_field->text();
-        start_server(contact_ip.toStdString());
+        
+        std::thread server_thread(start_server, contact_ip.toStdString());
+        std::thread client_thread(start_client, contact_ip.toStdString());
+
+        server_thread.join();
+        client_thread.join();
+        
         dialog->close();
     });
 

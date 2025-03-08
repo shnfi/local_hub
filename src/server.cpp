@@ -26,6 +26,9 @@ void start_server(std::string ip)
     struct sockaddr_in server_addr;
     socklen_t server_addr_size = sizeof(server_addr);
 
+    struct sockaddr_in client_addr;  // ADD THIS!
+    socklen_t client_addr_size = sizeof(client_addr);  // ADD THIS!
+
     // socket creation
 
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -41,7 +44,7 @@ void start_server(std::string ip)
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(PORT);
-    
+
     if (bind(server_socket, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
     {
         std::cout << "[x] error while binding the server!" << std::endl;
@@ -54,11 +57,12 @@ void start_server(std::string ip)
     
     std::cout << "server is waiting for connection..." << std::endl;
 
-    start_client(ip);
-
     // accept a connection 
 
     new_socket = accept(server_socket, (struct sockaddr *) &client_addr, &client_addr_size);
+
+    // std::thread client_thread(start_client, ip, server_addr);
+    // client_thread.join();
 
     if (new_socket < 0)
     {
