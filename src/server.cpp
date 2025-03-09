@@ -19,7 +19,7 @@ void initWinsock() {} // Empty for Linux/macOS
 
 int server_socket, new_socket;
 
-void start_server(std::string ip)
+void start_server()
 {
     initWinsock();
 
@@ -53,16 +53,17 @@ void start_server(std::string ip)
 
     // listen for a connection
 
-    listen(server_socket, 1);
+    if (listen(server_socket, 1) < 0)
+    {
+        std::cout << "[x] error while listening on the specified port" << std::endl;
+        exit(1);
+    }
     
     std::cout << "server is waiting for connection..." << std::endl;
 
     // accept a connection 
 
     new_socket = accept(server_socket, (struct sockaddr *) &client_addr, &client_addr_size);
-
-    // std::thread client_thread(start_client, ip, server_addr);
-    // client_thread.join();
 
     if (new_socket < 0)
     {

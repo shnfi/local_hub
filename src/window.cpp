@@ -310,7 +310,7 @@ void Window::ask_for_ip()
     connect(submit_button, &QPushButton::clicked, this, [=]() {
         contact_ip = ip_field->text();
 
-        std::thread server_thread(start_server, contact_ip.toStdString());
+        std::thread server_thread(start_server);
         std::thread client_thread(start_client, contact_ip.toStdString());
 
         server_thread.join();
@@ -436,6 +436,7 @@ void Window::main_light_theme()
     exit_button->setStyleSheet(exit_button_ss_light);
     maxmize_button->setStyleSheet(maxmize_button_ss_light);
     minimize_button->setStyleSheet(minimize_button_ss_light);
+    change_theme_widget->setStyleSheet(change_theme_button_ss_light);
     ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_light);
     ip_label->setStyleSheet(ip_label_ss_light);
     chat_container_widget->setStyleSheet(chat_container_widget_ss_light);
@@ -452,6 +453,7 @@ void Window::main_dark_theme()
     exit_button->setStyleSheet(exit_button_ss_dark);
     maxmize_button->setStyleSheet(maxmize_button_ss_dark);
     minimize_button->setStyleSheet(minimize_button_ss_dark);
+    change_theme_widget->setStyleSheet(change_theme_button_ss_dark);
     ip_displayer_widget->setStyleSheet(ip_displayer_widget_ss_dark);
     ip_label->setStyleSheet(ip_label_ss_dark);
     chat_container_widget->setStyleSheet(chat_container_widget_ss_dark);
