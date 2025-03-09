@@ -75,7 +75,7 @@ ss sending_message_widget_ss_dark = R"(background-color: #2294FB;
                                 border-radius: 20px;
                                 padding: 0 5px;
                             )";
-ss received_message_widget_ss_dark = R"(background-color: #3A3A3C;
+ss received_message_widget_ss_dark = R"(background-color: #EDEDED;
                                     color: #FFFFFF;
                                     border-radius: 20px;
                                     padding: 0 5px;
