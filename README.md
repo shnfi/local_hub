@@ -23,4 +23,4 @@ QT += core gui widgets network
 ## Additional information about Local Hub
 | Connection type | Port | Linux | windows | Mac |
 | :---: | :---: | :---: | :---: | :---: |
-|p2p connection | 50000 | true | true | not tested |
+|p2p connection | 50000 | true | not tested | not tested |
