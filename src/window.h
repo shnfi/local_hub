@@ -16,6 +16,8 @@
 #include <QTimer>
 #include <QScrollArea>
 #include <QSocketNotifier>
+#include <QPixmap>
+#include <QImage>
 
 #define BUFFER_SIZE 1024
 
@@ -39,6 +41,7 @@ private:
     void dialog_dark_theme();
     void main_light_theme();
     void main_dark_theme();
+    void network_err();
 
 private:
     int theme = 1;
@@ -74,6 +77,9 @@ private:
     QLineEdit *ip_field;
     QPushButton *submit_button;
     QSocketNotifier *client_socket_notifier;
+    QWidget *neter_image_widget;
+    QLabel *neter_image_label;
+    QLabel *error_label;
 };
 
 #endif

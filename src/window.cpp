@@ -6,6 +6,7 @@
 #include "win_inf.cpp"
 
 #include "server.cpp"
+#include "network_check.c"
 
 Window::Window(QWidget *parent) : QWidget(parent)
 {
@@ -15,7 +16,10 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    ask_for_ip();
+    if (network_check())
+        ask_for_ip();
+    else
+        network_err();
 
     /*
      * handling the fully exit if exit 
@@ -460,4 +464,115 @@ void Window::main_dark_theme()
     message_field_container_widget->setStyleSheet(message_field_container_widget_ss_dark);
     message_field->setStyleSheet(message_field_ss_dark);
     send_button->setStyleSheet(send_button_ss_dark);
+}
+
+void Window::network_err()
+{
+    dialog = new QDialog(this);
+    dialog->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    dialog->setStyleSheet(dialog_ss_light);
+    dialog->setWindowTitle(NETERR_WIN_INF.WIN_TITLE);
+    dialog->setFixedSize(NETERR_WIN_INF.WIN_W, NETERR_WIN_INF.WIN_H);
+
+    dialog_frame = new QFrame(dialog);
+    dialog_frame->setFixedSize(NETERR_WIN_INF.WIN_W, NETERR_WIN_INF.WIN_H);
+    dialog_frame->setStyleSheet(frame_ss_light);
+
+    dialog_layout = new QVBoxLayout(dialog);
+    dialog_layout->setAlignment(Qt::AlignCenter);
+    dialog_layout->setContentsMargins(0, 0, 0, 0);
+
+    title_bar = new QWidget();
+    title_bar->setFixedHeight(30);
+    title_bar->setStyleSheet(title_bar_ss_light);
+    dialog_layout->addWidget(title_bar);
+
+    form_widget = new QWidget();
+    dialog_layout->addWidget(form_widget);
+
+    dialog_layout->setStretch(0, 1);
+    dialog_layout->setStretch(1, 11);
+
+    form_layout = new QVBoxLayout(form_widget);
+    form_layout->setAlignment(Qt::AlignCenter);
+
+    title_bar_layout = new QHBoxLayout(title_bar);
+    title_bar_layout->setContentsMargins(0, 0, 0, 0);
+    title_bar_layout->setAlignment(Qt::AlignCenter);
+
+    buttons_widget = new QWidget();
+    buttons_widget->setFixedHeight(30);
+    buttons_widget->setFixedWidth(85);
+
+    buttons_layout = new QHBoxLayout(buttons_widget);
+    buttons_layout->setAlignment(Qt::AlignCenter);
+
+    exit_button = new QPushButton();
+    maxmize_button = new QPushButton();
+    minimize_button = new QPushButton();
+
+    title_label = new QLabel(NETERR_WIN_INF.WIN_TITLE);
+    title_label->setStyleSheet(title_label_ss_light);
+    title_label->setAlignment(Qt::AlignCenter);
+
+    exit_button->setStyleSheet(exit_button_ss_light);
+    exit_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(exit_button);
+
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
+    maxmize_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(maxmize_button);
+
+    minimize_button->setStyleSheet(minimize_button_ss_light);
+    minimize_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(minimize_button);
+
+    connect(exit_button, &QPushButton::clicked, this, [=]() {
+        exit_on_dialog = true;
+        dialog->close();
+    });
+
+    connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
+
+    change_theme_widget = new QWidget();
+    change_theme_widget->setFixedHeight(30);
+    change_theme_widget->setFixedWidth(50);
+
+    change_theme_layout = new QHBoxLayout(change_theme_widget);
+    change_theme_layout->setAlignment(Qt::AlignCenter);
+
+    change_theme_button = new QPushButton();
+
+    change_theme_button->setStyleSheet(change_theme_button_ss_light);
+    change_theme_button->setFixedSize(14, 14);
+    change_theme_layout->addWidget(change_theme_button);
+
+    connect(change_theme_button, &QPushButton::clicked, this, [=]() {
+        if (theme == 1)
+        {
+            theme = 2;
+            dialog_dark_theme();
+        }
+        else
+        {
+            theme = 1;
+            dialog_light_theme();
+        }
+    });
+
+    title_bar_layout->addWidget(buttons_widget);
+    title_bar_layout->addWidget(title_label);
+    title_bar_layout->addWidget(change_theme_widget);
+
+    title_bar_layout->setStretch(0, 1);
+    title_bar_layout->setStretch(1, 5);
+    title_bar_layout->setStretch(2, 1);
+
+    error_label = new QLabel("No network connection!");
+    error_label->setStyleSheet("color: black;");
+
+    form_layout->addWidget(error_label);
+
+    dialog->setLayout(dialog_layout);
+    dialog->exec();
 }
