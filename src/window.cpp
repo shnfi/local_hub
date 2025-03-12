@@ -16,10 +16,11 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    if (network_check())
-        ask_for_ip();
-    else
-        network_err();
+    // if (network_check())
+    //     ask_for_ip();
+    // else
+    //     network_err();
+    network_err();
 
     /*
      * handling the fully exit if exit 
@@ -568,10 +569,17 @@ void Window::network_err()
     title_bar_layout->setStretch(1, 5);
     title_bar_layout->setStretch(2, 1);
 
-    error_label = new QLabel("No network connection!");
-    error_label->setStyleSheet("color: black;");
+    QLabel *label = new QLabel();
+    QPixmap pixmap("resources/network_err.png");
+    
+    label->setPixmap(pixmap);
+    label->setScaledContents(true);
+    label->setFixedSize(150, 150);
 
-    form_layout->addWidget(error_label);
+    if (pixmap.isNull())
+        std::cout << "pixmap not loaded!" << std::endl;
+
+    form_layout->addWidget(label);
 
     dialog->setLayout(dialog_layout);
     dialog->exec();
