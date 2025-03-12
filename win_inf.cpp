@@ -14,7 +14,7 @@ struct CHAT_WINDOW_INF
 
 struct NETERR_WINDOW_INF
 {
-    const QString WIN_TITLE = "Local Hub - Network Error";
-    const int WIN_W = 300;
-    const int WIN_H = 300;
+    const QString WIN_TITLE = "Network Error";
+    const int WIN_W = 270;
+    const int WIN_H = 270;
 } NETERR_WIN_INF;
