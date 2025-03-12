@@ -16,11 +16,10 @@ Window::Window(QWidget *parent) : QWidget(parent)
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
-    // if (network_check())
-    //     ask_for_ip();
-    // else
-    //     network_err();
-    network_err();
+    if (network_check())
+        ask_for_ip();
+    else
+        network_err();
 
     /*
      * handling the fully exit if exit 
