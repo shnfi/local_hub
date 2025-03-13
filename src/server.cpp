@@ -26,8 +26,13 @@ void start_server()
     struct sockaddr_in server_addr;
     socklen_t server_addr_size = sizeof(server_addr);
 
-    struct sockaddr_in client_addr;  // ADD THIS!
-    socklen_t client_addr_size = sizeof(client_addr);  // ADD THIS!
+    /*
+     * add this because: you have to add a refernce
+     * of the client variables in the server code.
+     */
+
+    struct sockaddr_in client_addr;
+    socklen_t client_addr_size = sizeof(client_addr);
 
     // socket creation
 
@@ -70,4 +75,6 @@ void start_server()
         std::cout << "[x] error while accepting the connection!" << std::endl;
         exit(1);
     }
+
+    std::cout << "listening on port " << PORT << std::endl;
 }

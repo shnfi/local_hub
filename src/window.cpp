@@ -29,7 +29,7 @@ Window::Window(QWidget *parent) : QWidget(parent)
     if (exit_on_dialog)
     {
         QTimer::singleShot(3, this, [=]() {
-            close();
+            QCoreApplication::quit();
         });
     }
 
@@ -38,8 +38,6 @@ Window::Window(QWidget *parent) : QWidget(parent)
     server_socket_notifier = new QSocketNotifier(new_socket, QSocketNotifier::Read, this);
 
     connect(server_socket_notifier, &QSocketNotifier::activated, this, &Window::receive_msg);
-
-    std::cout << "listening on port " << PORT << std::endl;
 
     // main layout
 

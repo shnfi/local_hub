@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <QApplication>
+#include <QCoreApplication>
 #include <QWidget>
 #include <QStackedWidget>
 #include <QDialog>
