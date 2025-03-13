@@ -11,8 +11,15 @@ int network_check()
     struct ifaddrs *ifaddr, *ifa;
     int connected = 0;
 
+    // getting all the the network interfaces
+
     if (getifaddrs(&ifaddr) == -1)
         return 0;
+
+    /* 
+     * trying to find out a interface with a
+     * IPv4 or IPv6 address 
+     */
 
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
     {
@@ -25,6 +32,8 @@ int network_check()
             break;
         }
     }
+
+    // freeing the ifaddr
 
     freeifaddrs(ifaddr);
 

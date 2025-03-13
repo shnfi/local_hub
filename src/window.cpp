@@ -402,6 +402,8 @@ void Window::receive_msg()
     chat_container_layout->addWidget(message_widget);
 }
 
+// changing the dialog theme
+
 void Window::dialog_light_theme()
 {
     dialog->setStyleSheet(dialog_ss_light);
@@ -429,6 +431,8 @@ void Window::dialog_dark_theme()
     ip_field->setStyleSheet(ip_field_ss_dark);
     submit_button->setStyleSheet(submit_button_ss_dark);
 }
+
+// changing the main window theme
 
 void Window::main_light_theme()
 {
@@ -463,6 +467,8 @@ void Window::main_dark_theme()
     message_field->setStyleSheet(message_field_ss_dark);
     send_button->setStyleSheet(send_button_ss_dark);
 }
+
+// network connection error dialog 
 
 void Window::network_err()
 {
