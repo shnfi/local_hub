@@ -4,7 +4,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#define PORT 12345
+#define PORT 54321
 
 int client_socket;
 struct sockaddr_in client_addr;
