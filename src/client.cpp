@@ -10,17 +10,14 @@ int client_socket;
 struct sockaddr_in client_addr;
 socklen_t client_addr_size = sizeof(client_addr);
 
-void start_client(std::string ip)
+unsigned int start_client(std::string ip)
 {
     // socket creation 
 
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (client_socket == -1)
-    {
-        std::cout << "[x] error while starting server!" << std::endl;
-        exit(1);
-    }
+        return 1;
 
     // specifying the destination 
 
@@ -28,10 +25,7 @@ void start_client(std::string ip)
     client_addr.sin_port = htons(PORT);
 
     if (inet_pton(AF_INET, ip.c_str(), &client_addr.sin_addr) <= 0)
-    {
-        std::cout << "[x] error while processing the address!" << std::endl;
-        exit(1);
-    }
+        return 1;
 
     // make a connection 
 
@@ -42,4 +36,6 @@ void start_client(std::string ip)
     }
 
     std::cout << "connected to " << ip << std::endl;
+
+    return 0;
 }
