@@ -19,7 +19,7 @@ void initWinsock() {} // Empty for Linux/macOS
 
 int server_socket, new_socket;
 
-void start_server()
+unsigned int start_server()
 {
     initWinsock();
 
@@ -39,10 +39,7 @@ void start_server()
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (server_socket == -1)
-    {
-        std::cout << "[x] error while starting server!" << std::endl;
-        exit(1);
-    }
+        return 1;
 
     // binding
 
@@ -51,18 +48,12 @@ void start_server()
     server_addr.sin_port = htons(PORT);
 
     if (bind(server_socket, (struct sockaddr *) &server_addr, sizeof(server_addr)) < 0)
-    {
-        std::cout << "[x] error while binding the server!" << std::endl;
-        exit(1);
-    }
+        return 2;
 
     // listen for a connection
 
     if (listen(server_socket, 1) < 0)
-    {
-        std::cout << "[x] error while listening on the specified port" << std::endl;
-        exit(1);
-    }
+        return 3;
     
     std::cout << "server is waiting for connection..." << std::endl;
 
@@ -71,10 +62,9 @@ void start_server()
     new_socket = accept(server_socket, (struct sockaddr *) &client_addr, &client_addr_size);
 
     if (new_socket < 0)
-    {
-        std::cout << "[x] error while accepting the connection!" << std::endl;
-        exit(1);
-    }
+        return 4;
 
     std::cout << "listening on port " << PORT << std::endl;
+
+    return 0;
 }
