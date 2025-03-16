@@ -538,35 +538,9 @@ void Window::network_err()
 
     connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
 
-    change_theme_widget = new QWidget();
-    change_theme_widget->setFixedHeight(30);
-    change_theme_widget->setFixedWidth(50);
-
-    change_theme_layout = new QHBoxLayout(change_theme_widget);
-    change_theme_layout->setAlignment(Qt::AlignCenter);
-
-    change_theme_button = new QPushButton();
-
-    change_theme_button->setStyleSheet(change_theme_button_ss_light);
-    change_theme_button->setFixedSize(14, 14);
-    change_theme_layout->addWidget(change_theme_button);
-
-    connect(change_theme_button, &QPushButton::clicked, this, [=]() {
-        if (theme == 1)
-        {
-            theme = 2;
-            dialog_dark_theme();
-        }
-        else
-        {
-            theme = 1;
-            dialog_light_theme();
-        }
-    });
-
     title_bar_layout->addWidget(buttons_widget);
     title_bar_layout->addWidget(title_label);
-    title_bar_layout->addWidget(change_theme_widget);
+    title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
 
     title_bar_layout->setStretch(0, 1);
     title_bar_layout->setStretch(1, 5);
