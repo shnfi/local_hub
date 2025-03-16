@@ -18,3 +18,10 @@ struct NETERR_WINDOW_INF
     const int WIN_W = 270;
     const int WIN_H = 270;
 } NETERR_WIN_INF;
+
+struct SERERR_WINDOW_INF
+{
+    const QString WIN_TITLE = "Server Error";
+    const int WIN_W = 350;
+    const int WIN_H = 150;
+} SERERR_INF;
