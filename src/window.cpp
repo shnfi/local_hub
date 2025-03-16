@@ -1,4 +1,5 @@
 #include <thread>
+#include <future>
 
 #include "window.h"
 #include "../resources/light_stylesheet.cpp"
@@ -312,14 +313,21 @@ void Window::ask_for_ip()
     connect(submit_button, &QPushButton::clicked, this, [=]() {
         contact_ip = ip_field->text();
 
-        std::thread server_thread(start_server);
-        std::thread client_thread(start_client, contact_ip.toStdString());
+        std::future<unsigned int> server_result = std::async(std::launch::async, start_server);
+        std::future<unsigned int> client_result = std::async(std::launch::async, start_client, contact_ip.toStdString());
 
-        server_thread.join();
-        client_thread.join();
-        
-        dialog->close();
+        unsigned int _server_return_val = server_result.get();
+        unsigned int _client_return_val = client_result.get();
+
+        if (_server_return_val > 0)
+        {
+            dialog->close();
+            server_er_pop_up(_server_return_val);
+        }
+        else
+            dialog->close();
     });
+
 
     dialog->setLayout(dialog_layout);
     dialog->exec();
@@ -555,6 +563,111 @@ void Window::network_err()
 
     if (pixmap.isNull())
         std::cout << "pixmap not loaded!" << std::endl;
+
+    form_layout->addWidget(label);
+
+    dialog->setLayout(dialog_layout);
+    dialog->exec();
+}
+
+void Window::server_er_pop_up(unsigned int code)
+{
+    dialog = new QDialog(this);
+    dialog->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    dialog->setStyleSheet(dialog_ss_light);
+    dialog->setWindowTitle(SERERR_INF.WIN_TITLE);
+    dialog->setFixedSize(SERERR_INF.WIN_W, SERERR_INF.WIN_H);
+
+    dialog_frame = new QFrame(dialog);
+    dialog_frame->setFixedSize(SERERR_INF.WIN_W, SERERR_INF.WIN_H);
+    dialog_frame->setStyleSheet(frame_ss_light);
+
+    dialog_layout = new QVBoxLayout(dialog);
+    dialog_layout->setAlignment(Qt::AlignCenter);
+    dialog_layout->setContentsMargins(0, 0, 0, 0);
+
+    title_bar = new QWidget();
+    title_bar->setFixedHeight(30);
+    title_bar->setStyleSheet(title_bar_ss_light);
+    dialog_layout->addWidget(title_bar);
+
+    form_widget = new QWidget();
+    dialog_layout->addWidget(form_widget);
+
+    dialog_layout->setStretch(0, 1);
+    dialog_layout->setStretch(1, 11);
+
+    form_layout = new QVBoxLayout(form_widget);
+    form_layout->setAlignment(Qt::AlignCenter);
+
+    title_bar_layout = new QHBoxLayout(title_bar);
+    title_bar_layout->setContentsMargins(0, 0, 0, 0);
+    title_bar_layout->setAlignment(Qt::AlignCenter);
+
+    buttons_widget = new QWidget();
+    buttons_widget->setFixedHeight(30);
+    buttons_widget->setFixedWidth(85);
+
+    buttons_layout = new QHBoxLayout(buttons_widget);
+    buttons_layout->setAlignment(Qt::AlignCenter);
+
+    exit_button = new QPushButton();
+    maxmize_button = new QPushButton();
+    minimize_button = new QPushButton();
+
+    title_label = new QLabel(SERERR_INF.WIN_TITLE);
+    title_label->setStyleSheet(title_label_ss_light);
+    title_label->setAlignment(Qt::AlignCenter);
+
+    exit_button->setStyleSheet(exit_button_ss_light);
+    exit_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(exit_button);
+
+    maxmize_button->setStyleSheet(maxmize_button_ss_light);
+    maxmize_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(maxmize_button);
+
+    minimize_button->setStyleSheet(minimize_button_ss_light);
+    minimize_button->setFixedSize(14, 14);
+    buttons_layout->addWidget(minimize_button);
+
+    connect(exit_button, &QPushButton::clicked, this, [=]() {
+        exit_on_dialog = true;
+        dialog->close();
+        exit(1);
+    });
+
+    connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
+
+    title_bar_layout->addWidget(buttons_widget);
+    title_bar_layout->addWidget(title_label);
+    title_bar_layout->addSpacerItem(new QSpacerItem(50, 30));
+
+    title_bar_layout->setStretch(0, 1);
+    title_bar_layout->setStretch(1, 5);
+    title_bar_layout->setStretch(2, 1);
+
+    QLabel *label = new QLabel();
+    label->setStyleSheet("color: #000000;");
+
+    switch (code)
+    {
+        case 1:
+            label->setText("Error while starting the server!"); 
+            break;
+        
+        case 2:
+            label->setText("Error while binding the server!");
+            break;
+
+        case 3:
+            label->setText("Error while listening on the specified port!"); 
+            break;
+        
+        case 4:
+            label->setText("Error while accepting the connection!");
+            break;
+    }
 
     form_layout->addWidget(label);
 
