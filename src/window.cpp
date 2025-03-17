@@ -322,7 +322,7 @@ void Window::ask_for_ip()
         if (_server_return_val > 0)
         {
             dialog->close();
-            server_er_pop_up(_server_return_val);
+            error_dialog_pop_up(_server_return_val);
         }
         else
             dialog->close();
@@ -351,7 +351,7 @@ void Window::send_msg(QString msg)
 {
     if (send(client_socket, msg.toStdString().c_str(), msg.size(), 0) == -1)
     {
-        std::cout << "[x] message did not sent!" << std::endl;
+        error_dialog_pop_up(5);
         return;
     }
 
@@ -570,7 +570,7 @@ void Window::network_err()
     dialog->exec();
 }
 
-void Window::server_er_pop_up(unsigned int code)
+void Window::error_dialog_pop_up(unsigned int code)
 {
     dialog = new QDialog(this);
     dialog->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
@@ -634,7 +634,6 @@ void Window::server_er_pop_up(unsigned int code)
     connect(exit_button, &QPushButton::clicked, this, [=]() {
         exit_on_dialog = true;
         dialog->close();
-        exit(1);
     });
 
     connect(minimize_button, &QPushButton::clicked, this, [=]() { dialog->showMinimized(); });
@@ -667,10 +666,15 @@ void Window::server_er_pop_up(unsigned int code)
         case 4:
             label->setText("Error while accepting the connection!");
             break;
+
+		case 5:
+			label->setText("Message did not sent!");
     }
 
     form_layout->addWidget(label);
 
     dialog->setLayout(dialog_layout);
-    dialog->exec();
+    //dialog->exec();
+	dialog->setAttribute(Qt::WA_DeleteOnClose);  // Automatically deletes itself when closed
+    dialog->show();
 }
