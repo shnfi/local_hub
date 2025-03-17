@@ -43,7 +43,7 @@ private:
     void main_light_theme();
     void main_dark_theme();
     void network_err();
-    void server_er_pop_up(unsigned int code);
+    void error_dialog_pop_up(unsigned int code);
 
 private:
     int theme = 1;
