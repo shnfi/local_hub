@@ -330,6 +330,7 @@ void Window::ask_for_ip()
 
 
     dialog->setLayout(dialog_layout);
+	dialog->setAttribute(Qt::WA_DeleteOnClose);  // Automatically deletes itself when closed
     dialog->exec();
 }
 
