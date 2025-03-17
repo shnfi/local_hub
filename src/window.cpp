@@ -677,5 +677,5 @@ void Window::error_dialog_pop_up(unsigned int code)
     dialog->setLayout(dialog_layout);
     //dialog->exec();
 	dialog->setAttribute(Qt::WA_DeleteOnClose);  // Automatically deletes itself when closed
-    dialog->show();
+    dialog->exec();
 }
